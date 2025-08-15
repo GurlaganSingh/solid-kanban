@@ -1,0 +1,101 @@
+/* ---- exact CSS copied from your Alpine version ---- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background-attachment: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  min-height: 100vh; overflow-x: auto; position: relative;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.1) 0%, transparent 50%);
+  z-index: -1;
+}
+.glass-container {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(15, 15, 35, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.glass-card {
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.1);
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.2);
+  background: rgba(255,255,255,.12);
+}
+.kanban-container { padding: 24px; min-height: 100vh; }
+.kanban-header { text-align: center; margin-bottom: 32px; }
+.kanban-header h1 {
+  color: rgba(255, 255, 255, .9); font-size: 2.5rem; font-weight: 700;
+  background: linear-gradient(135deg, #fff 0%, #a855f7 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.kanban-board {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px; max-width: 1400px; margin: 0 auto;
+}
+.column { min-height: 500px; padding: 20px; }
+.column-header { display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.column-title { font-size: 1.25rem; font-weight: 600; color: rgba(255,255,255,.9); }
+.task-count { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  border-radius: 12px; padding: 4px 12px; font-size: .875rem; color: rgba(255,255,255,.8); }
+.task-list { display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
+.task-item { padding: 16px; color: rgba(255,255,255,.85); cursor: grab; user-select: none; position: relative; }
+.task-item:active { cursor: grabbing; }
+.task-title { font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,.95); }
+.task-description { font-size: .875rem; color: rgba(255,255,255,.7); line-height: 1.4; margin-bottom: 12px; }
+.task-meta { display: flex; justify-content: space-between; align-items: center; font-size: .75rem; color: rgba(255,255,255,.6); }
+.priority-badge { padding: 4px 8px; border-radius: 8px; font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+.priority-high { background: rgba(239,68,68,.2); color: #fca5a5; border: 1px solid rgba(239,68,68,.3); }
+.priority-medium { background: rgba(245,158,11,.2); color: #fcd34d; border: 1px solid rgba(245,158,11,.3); }
+.priority-low { background: rgba(34,197,94,.2); color: #86efac; border: 1px solid rgba(34,197,94,.3); }
+.add-task-btn {
+  width: 100%; padding: 12px; background: rgba(255,255,255,.05);
+  border: 2px dashed rgba(255,255,255,.2); border-radius: 12px;
+  color: rgba(255,255,255,.6); font-size: .875rem; cursor: pointer;
+  transition: all .3s ease; margin-top: 12px;
+}
+.add-task-btn:hover {
+  background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.3); color: rgba(255,255,255,.8);
+}
+.drag-over { background: rgba(168,85,247,.1) !important; border-color: rgba(168,85,247,.3) !important; }
+.dragging { opacity: .5; transform: rotate(5deg); }
+.liquid-animation { position: relative; overflow: hidden; }
+.liquid-animation::before {
+  content: ''; position: absolute; inset: -2px;
+  background: linear-gradient(45deg, transparent, rgba(168,85,247,.1), transparent, rgba(56,189,248,.1), transparent);
+  background-size: 200% 200%; animation: liquid-flow 4s ease-in-out infinite; border-radius: 18px; z-index: -1;
+}
+@keyframes liquid-flow { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
+@media (max-width: 768px) {
+  .kanban-board { grid-template-columns: 1fr; gap: 16px; }
+  .kanban-header h1 { font-size: 2rem; }
+  .column { padding: 16px; }
+}
+
+/* Allow pointer events on draggable children */
+.task-list,
+.task-item {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.task-item[draggable="true"] {
+  cursor: grab;
+}
